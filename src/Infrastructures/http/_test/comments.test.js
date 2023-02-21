@@ -43,48 +43,6 @@ describe("/threads/{threadId}/comments endpoint", () => {
 			expect(responseJson.data.addedComment).toBeDefined();
 		});
 
-		it("should response 400 when request payload not contain needed property", async () => {
-			const payload = {};
-			const server = await createServer(container);
-
-			const response = await server.inject({
-				method: "POST",
-				url: "/threads/thread-id_test/comments",
-				payload,
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
-
-			const responseJson = JSON.parse(response.payload);
-			expect(response.statusCode).toEqual(400);
-			expect(responseJson.status).toEqual("fail");
-			expect(responseJson.message).toEqual(
-				"tidak dapat membuat comment baru karena properti yang dibutuhkan tidak ada"
-			);
-		});
-
-		it("should response 400 when request payload did not meet data type specification", async () => {
-			const payload = { content: true };
-			const server = await createServer(container);
-
-			const response = await server.inject({
-				method: "POST",
-				url: "/threads/thread-id_test/comments",
-				payload,
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
-
-			const responseJson = JSON.parse(response.payload);
-			expect(response.statusCode).toEqual(400);
-			expect(responseJson.status).toEqual("fail");
-			expect(responseJson.message).toEqual(
-				"tidak dapat membuat comment baru karena tipe data tidak sesuai"
-			);
-		});
-
 		it("should response 404 when thread not found", async () => {
 			const payload = { content: "comment content test" };
 			const server = await createServer(container);

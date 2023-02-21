@@ -21,11 +21,6 @@ describe("DeleteCommentUseCase", () => {
 			.fn()
 			.mockImplementation(() => Promise.resolve());
 
-		// !!!!! NOTE !!!!!!
-		mockCommentRepository.test = jest
-			.fn()
-			.mockImplementation(() => Promise.resolve());
-
 		const deleteCommentUseCase = new DeleteCommentUseCase({
 			threadRepository: mockThreadRepository,
 			commentRepository: mockCommentRepository,
